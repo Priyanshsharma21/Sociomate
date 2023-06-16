@@ -33,6 +33,16 @@ const postSchema = new Schema({
       }
     }
   ],
+  photo:{
+    id : {
+      type : String,
+      required : true
+  },
+  secure_url : {
+      type : String,
+      required : true
+  }
+  },
   tags: {
     type: [String]
     }
