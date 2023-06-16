@@ -92,7 +92,7 @@ export const login = async (req, res) => {
     if (checkPass === true) {
       const token = jwt.sign({
         userId: user._id.toString()
-      }, process.env.secretKey, {
+      }, process.env.JWT_SECRET, {
         expiresIn: '3d'
       });
       res.setHeader('auth-token', token)
@@ -108,4 +108,74 @@ export const login = async (req, res) => {
       error: error.message
     });
   }
-}
+};
+
+export const fetchUser = async(req,res)=>{
+  try {
+    const userId = req.params.userId;
+    const user = await Users.findById(userId)
+    if(!user) return res.status(404).json({
+      status: false,
+      message: 'no user found'
+    });
+    res.status(200).json({status:true,data:user})
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message
+    });
+  }
+};
+
+export const users = async (req, res) => {
+  try {
+    const { name, email, mobile } = req.query;
+    const user = await Users.find({$or:[{name},{email},{mobile}]});
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: 'No user found',
+      });
+    }
+    res.status(200).json({ status: true, data: user });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message,
+    });
+  }
+};
+
+export const connections = async(req,res)=>{
+  try {
+    const {userId,connectionId} = req.params;
+    const user = await Users.findOneAndUpdate({_id:userId},{$addToSet:{connections:connectionId}},{new:true});
+    if(!user)return res.status(404).json({
+      status: false,
+      message: 'No user found',
+    });
+    res.status(200).json({status:true,data:user})
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message,
+    });
+  }
+};
+
+export const profileUpdate = async(req,res)=>{
+  try {
+    const {userId} = req.params;
+    const user = await Users.findByIdAndUpdate(userId,req.body,{new:true});
+    if(!user)return res.status(404).json({
+      status: false,
+      message: 'No user found',
+    });
+    res.status(200).json({status:true,data:user})
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message,
+    });
+  }
+};
