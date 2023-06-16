@@ -1,5 +1,4 @@
-import Users from '../models/usersModel';
-import Posts from '../models/postsModel';
+import Users from '../models/usersModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
