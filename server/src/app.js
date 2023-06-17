@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import userRoutes from './routes/userRoutes.js'
+import userRoutes from '../src/routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 
 

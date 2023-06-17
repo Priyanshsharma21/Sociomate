@@ -4,14 +4,12 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 
-const {JWT_SECRET} = process.env
+const { JWT_SECRET } = process.env
 
 
 export const isLoggesIn = async(req,res,next)=>{
     try {
         const token = req.headers.authorization.split(" ")[1] || req.headers['auth-token']
-
-        console.log(token)
 
         if(!token) return res.status(404).json({status: false, message : "Token Not Found."})
 
@@ -22,8 +20,6 @@ export const isLoggesIn = async(req,res,next)=>{
         if(!user) return res.status(401).json({status : false, message : "User Not Authenticated to access this route"})
 
         req.user_id = user.userId
-
-        console.log(user)
 
         next()
 

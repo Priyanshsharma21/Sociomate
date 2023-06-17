@@ -6,7 +6,8 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    lowercase:true
   },
   mobile: {
     type: String,
