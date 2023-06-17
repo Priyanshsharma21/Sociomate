@@ -152,7 +152,8 @@ export const login = async (req, res) => {
 
     res.status(200).json({
       status: true,
-      data: token
+      data: token,
+      user : user
     });
 
   } catch (error) {
