@@ -1,13 +1,16 @@
 import express from 'express'
-import { signup, login, fetchUser, users, connections, profileUpdate } from '../controllers/users.js'
+import { signup, login, fetchUser, getUserByQuery, connections, profileUpdate } from '../controllers/users.js'
+import { isLoggesIn } from '../middlewares/index.js';
 
 const router = express.Router();
 
 router.post('/signup', signup);
 router.post('/login', login);
-router.get('/user/:userId', fetchUser);
-router.get('/users', users);
-router.put('/connections/:userId/:connectionId', connections);
-router.put('/profileUpdate/:userId',profileUpdate)
+router.get('/user/:userId',isLoggesIn, fetchUser);
+router.get('/users',isLoggesIn, getUserByQuery);
+router.put('/connections/:userId/:connectionId',isLoggesIn, connections);
+router.put('/profileUpdate/:userId',isLoggesIn, profileUpdate)
+
+
 
 export default router;
