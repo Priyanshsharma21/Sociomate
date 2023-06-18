@@ -49,3 +49,76 @@ export const posts = async(req,res)=>{
         
     }
 };
+
+export const postsByQuery = async(req,res)=>{
+    try {
+    const { tags } = req.query;
+    const posts = await Posts.find({ tags: { $in: tags } });
+    res.status(200).json({status:true,data:posts});
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message }); 
+    }
+};
+
+export const connections = async(req,res)=>{
+    try {
+       const {userId,connectionId} = req.params; 
+       const user = await Users.findById(userId);
+       const connection = await Users.findById(connectionId);
+       if(!user || !connection)return res.status(404).json({ status: false, message: "user not found" });
+    const mutuals = user.connections.filter(connection =>
+        otherUser.connections.includes(connection)
+      );
+      res.status(200).json({status:true,data:mutuals})
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });  
+    }
+};
+
+export const postUpdate = async (req,res) => {
+    try {
+      const {
+        postId
+      } = req.params
+
+      const post = await Posts.findByIdAndUpdate(userId, req.body, {
+        new: true
+      })
+      if (!post) return res.status(404).json({
+        status: false,
+        message: 'No user found',
+      })
+      res.status(200).json({
+        status: true,
+        message: "post updated successfully"
+      })
+    } catch (error) {
+      res.status(500).json({
+        status: false,
+        error: error.message,
+      })
+    }
+  };
+
+  export const removePost = async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const user = await Users.findOneAndDelete({ _id: postId });
+      if (!user) {
+        return res.status(404).json({
+          status: false,
+          error: 'Post not found',
+        });
+      }
+      res.json({
+        status: true,
+        message: 'Post successfully removed',
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: false,
+        error: error.message,
+      });
+    }
+  };
+  
