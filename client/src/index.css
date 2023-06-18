@@ -9,8 +9,13 @@
 }
 
 body {
-  background-image: linear-gradient( 358.4deg,  rgba(249,151,119,1) -2.1%, rgba(98,58,162,1) 90% );
-  position: relative;
+  /* background: linear-gradient(
+    358.4deg,
+    rgba(249, 151, 119, 1) -2.1%,
+    rgba(98, 58, 162, 1) 90%
+  ); */
+
+  background: #193555;
 }
 
 .overlay {
@@ -19,7 +24,12 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.3); /* Adjust the opacity value (0.3) as desired */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.3
+  ); /* Adjust the opacity value (0.3) as desired */
   backdrop-filter: blur(8px); /* Adjust the blur value as desired */
   z-index: 1;
 }
@@ -256,16 +266,6 @@ label {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /* search input */
 .group {
   display: flex;
@@ -273,9 +273,9 @@ label {
   align-items: center;
   position: relative;
   max-width: 190px;
- }
- 
- .input_search {
+}
+
+.input_search {
   width: 100%;
   height: 40px;
   line-height: 28px;
@@ -286,32 +286,289 @@ label {
   outline: none;
   background-color: #f3f3f4;
   color: #0d0c22;
-  transition: .3s ease;
+  transition: 0.3s ease;
 
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   font-family: Arial, Helvetica, sans-serif;
- }
- 
- .input_search::placeholder {
+}
+
+.input_search::placeholder {
   color: #9e9ea7;
- }
- 
- .input_search:focus, input:hover {
+}
+
+.input_search:focus,
+input:hover {
   outline: none;
-  border-color: rgba(234,76,137,0.4);
-  background-color: #fff;
+  color: #0d0c22;
+  border-color: rgba(255, 191, 0, 0.4);
+  background-color: #ffffffbe;
   box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
- }
- 
- .icon {
+}
+
+.icon {
   position: absolute;
   left: 1rem;
   fill: #9e9ea7;
   width: 1rem;
   height: 1rem;
- }
- 
- 
- 
+}
+
+.container_wrapper {
+  margin-top: 6.5rem;
+  height: max-content;
+  padding-left: 8.5rem;
+  padding-right: 8.5rem;
+}
+
+.banner_home_card {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.img_profile {
+  width: 60px;
+  height: 60px;
+  top: 6.9rem;
+  left: 40%;
+}
+
+.name_home_card {
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.card_user {
+  background: rgba(198, 198, 198, 0.51);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  border: 1px solid rgba(198, 198, 198, 0.3);
+
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 1235px) {
+  .container_wrapper {
+    margin-top: 6.5rem;
+    height: max-content;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .img_profile {
+    width: 60px;
+    height: 60px;
+    top: 6.9rem;
+    left: 46%;
+  }
+}
+
+@media (max-width: 766px) {
+  .container_wrapper {
+    margin-top: 6.5rem;
+    height: max-content;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .like_share_comment{
+    font-size: 0.6rem;
+  }
+
+  .like_text{
+    font-size: 0.6rem;
+  }
+
+  .feed{
+    margin-left: 0px;
+    margin-top: 2rem;
+  }
+
+  .news_card{
+    margin-left: 0px;
+    margin-top: 2rem;
+  }
+}
+
+.feed_card {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* margin-top: 1.4rem; */
+  border-radius: 1rem;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+
+.news_card{
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* margin-top: 1.4rem; */
+  border-radius: 1rem;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.newsName{
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.newsName:hover{
+  color: rgb(255, 216, 216);
+}
+
+.dot_blank{
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsCard{
+  margin-top: 1rem !important;
+}
+
+
+.created_user_At{
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.content{
+  font-size: 0.94rem;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.image_main_home_post{
+  width: 100%;
+  height: 400px;
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+.like_share_comment{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.like_text{
+  font-size: 1rem;
+  color: white;
+}
+
+
+
+.img_profile_pic,.img_pro{
+  top: 35%;
+  left: 2%;
+
+  width: 140px;
+  height: 140px;
+}
+
+
+.profile_details{
+  margin-top: 5rem;
+}
+
+.name_on_profile{
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: white;
+  margin-left: 1.2rem;
+}
+
+
+
+
+
+
+
+
+
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+}
+/* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: .3s;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px ,2px);
+}

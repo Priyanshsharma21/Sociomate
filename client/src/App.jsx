@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PreLoader } from "./components/PreLoader.jsx";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Auth, Connection, Home, Profile, Search } from "./pages";
+import UserProfile from "./pages/UserProfile.jsx";
 
 
 
@@ -34,15 +35,16 @@ const App = () => {
           <PreLoader />
         </div>
       ) : (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/connection" element={<Connection />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/search" element={<Search />} />
-
-          
-        </Routes>
+        <div className="main_wrapper">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/connection" element={<Connection />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+          </Routes>
+        </div>
       )}
     </>
   );

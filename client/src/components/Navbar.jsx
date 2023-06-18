@@ -51,7 +51,7 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="hidden xl:block">
+          <div className="hidden md:block">
           <form onSubmit={handleSearch}>
             <div className="group">
                 <svg className="icon mt-3" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
@@ -70,7 +70,7 @@ const Navbar = () => {
           </div>
 
           {/* Menu */}
-          <div className="hidden xl:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
           <Link
                 to="/"
                 className="text-gray-300 hover:bg-gray-700 hover:bg-opacity-50 px-3 py-2 rounded-md text-sm font-medium"
@@ -92,7 +92,7 @@ const Navbar = () => {
           </div>
 
           {/* Hamburger Menu */}
-          <div className="-mr-2 flex items-center xl:hidden">
+          <div className="mr-2 flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
@@ -140,19 +140,19 @@ const Navbar = () => {
             <div ref={ref} className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to={`/`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:bg-opacity-50"
               >
                 Home
               </Link>
               <Link
                 to={`/connection`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:bg-opacity-50"
               >
                 Connections
               </Link>
               <Link
                 to={`/profile`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:bg-opacity-50"
               >
                 Profile
               </Link>

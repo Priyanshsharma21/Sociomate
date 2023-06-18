@@ -4,9 +4,7 @@ import morgan from 'morgan'
 import userRoutes from '../src/routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 
-
 const app = express()
-
 
 // global middlewares
 app.use(express.json())
