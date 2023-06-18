@@ -1,4 +1,6 @@
-import PreLoader from "./PreLoader";
+import Navbar from './Navbar.jsx'
 
 
-export {PreLoader}
+export {
+    Navbar
+}

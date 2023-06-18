@@ -1,9 +1,13 @@
 import React from 'react'
+import { Navbar } from '../components'
+import withContainer from '../hof/Hof';
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="">
+      Home
+    </div>
   )
 }
 
-export default Home
+export default withContainer(Home);
