@@ -6,6 +6,11 @@ const {
 } = mongoose;
 
 const postSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   content: {
     type: String,
     required: true,
@@ -20,11 +25,9 @@ const postSchema = new Schema({
   photo: {
     id: {
       type: String,
-      required: true
     },
-    secure_url: {
+  secure_url: {
       type: String,
-      required: true
     }
   },
   comments: [{
@@ -34,15 +37,11 @@ const postSchema = new Schema({
       minlength: 1,
       maxlength: 50
     },
-    user: {
+  user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
   }],
   tags: {
     type: [String]
