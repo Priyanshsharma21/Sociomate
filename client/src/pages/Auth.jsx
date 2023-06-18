@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LoginLoader } from '../components/PreLoader.jsx'
+
 
 const Auth = () => {
   const {VITE_URL} = import.meta.env
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
 
 
   const [loginForm, setLoginForm] = useState({
@@ -22,6 +25,7 @@ const Auth = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const res = await axios.post(`${VITE_URL}/login`, {
         mobile : loginForm.loginMobile,
         password : loginForm.loginPassword
@@ -30,8 +34,10 @@ const Auth = () => {
       if(res.data.status === true){
         localStorage.setItem('token', res.data.data)
         localStorage.setItem('user', JSON.stringify(res.data.user))
+        setLoading(false)
         navigate('/')
       }else{
+        setLoading(false)
         alert("Enter all the details")
       }
     } catch (error) {
@@ -43,10 +49,13 @@ const Auth = () => {
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
+        setLoading(true)
         const res = await axios.post(`${VITE_URL}/signup`,registerForm)
         if(res.data.status === true){
+          setLoading(false)
           alert("SignUp Successfully, Now Log In")
         }else{
+          setLoading(false)
           alert("Something Went Wrong")
         }
     } catch (error) {
@@ -72,7 +81,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen">
+    <div className="flex flex-col justify-center items-center w-full h-screen auth_main">
       <div className="main">
         <input type="checkbox" id="chk" aria-hidden="true" />
 
@@ -99,7 +108,17 @@ const Auth = () => {
               onChange={handleLoginChange}
               required
             />
-            <button type="submit">Log in</button>
+            <button type="submit">
+              {loading ? (
+                <div className="log_load flex justify-center items-center">
+                  <LoginLoader />
+                </div>
+              ):(
+                <>
+                  Log In
+                </>
+              )}
+            </button>
           </form>
         </div>
 
@@ -144,7 +163,17 @@ const Auth = () => {
               onChange={handleRegisterChange}
               required
             />
-            <button type="submit">Register</button>
+            <button type="submit">
+              {loading ? (
+                <div className="log_load flex justify-center items-center">
+                  <LoginLoader />
+                </div>
+              ):(
+                <>
+                  Sign In
+                </>
+              )}
+            </button>
           </form>
         </div>
       </div>
