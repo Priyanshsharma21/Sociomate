@@ -11,7 +11,6 @@ import {
 } from '../utils/index.js'
 
 
-
 export const signup = async (req, res) => {
   try {
     const {
