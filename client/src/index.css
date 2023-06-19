@@ -6,6 +6,11 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 
 body {
@@ -15,8 +20,31 @@ body {
     rgba(98, 58, 162, 1) 90%
   ); */
 
-  background: #193555;
+  background: #050547;
 }
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: greenyellow;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+}
+
+/* .container_wrapper{
+  background: linear-gradient(
+    358.4deg,
+    rgba(249, 151, 119, 1) -2.1%,
+    rgba(98, 58, 162, 1) 90%
+  );
+} */
+
 
 .overlay {
   position: absolute;
@@ -375,20 +403,20 @@ input:hover {
     padding-right: 1.5rem;
   }
 
-  .like_share_comment{
+  .like_share_comment {
     font-size: 0.6rem;
   }
 
-  .like_text{
+  .like_text {
     font-size: 0.6rem;
   }
 
-  .feed{
+  .feed {
     margin-left: 0px;
     margin-top: 2rem;
   }
 
-  .news_card{
+  .news_card {
     margin-left: 0px;
     margin-top: 2rem;
   }
@@ -408,8 +436,7 @@ input:hover {
   padding-right: 0.5rem;
 }
 
-
-.news_card{
+.news_card {
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
@@ -423,16 +450,16 @@ input:hover {
   padding-right: 0.5rem;
 }
 
-.newsName{
+.newsName {
   font-weight: 600;
   font-size: 0.9rem;
 }
 
-.newsName:hover{
+.newsName:hover {
   color: rgb(255, 216, 216);
 }
 
-.dot_blank{
+.dot_blank {
   font-size: 1rem;
   color: white;
   text-align: center;
@@ -442,43 +469,42 @@ input:hover {
   justify-content: center;
 }
 
-.newsCard{
+.newsCard {
   margin-top: 1rem !important;
 }
 
-
-.created_user_At{
+.created_user_At {
   font-size: 0.8rem;
   margin-top: 0.5rem;
 }
 
-.content{
+.content {
   font-size: 0.94rem;
   font-weight: 400;
   font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+  line-height: 1.4rem;
 }
 
-
-.image_main_home_post{
+.image_main_home_post {
   width: 100%;
   height: 400px;
   margin-top: 1rem;
   border-radius: 1rem;
 }
 
-.like_share_comment{
+.like_share_comment {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.like_text{
+.like_text {
   font-size: 1rem;
   color: white;
 }
 
-
-
-.img_profile_pic,.img_pro{
+.img_profile_pic,
+.img_pro {
   top: 35%;
   left: 2%;
 
@@ -486,25 +512,16 @@ input:hover {
   height: 140px;
 }
 
-
-.profile_details{
+.profile_details {
   margin-top: 5rem;
 }
 
-.name_on_profile{
+.name_on_profile {
   font-size: 1.2rem;
   font-weight: 800;
   color: white;
   margin-left: 1.2rem;
 }
-
-
-
-
-
-
-
-
 
 .Btn {
   display: flex;
@@ -517,7 +534,7 @@ input:hover {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: rgb(255, 65, 65);
 }
@@ -525,7 +542,7 @@ input:hover {
 /* plus sign */
 .sign {
   width: 100%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -547,28 +564,214 @@ input:hover {
   color: white;
   font-size: 1.2em;
   font-weight: 600;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 /* hover effect on button width */
 .Btn:hover {
   width: 125px;
   border-radius: 40px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .Btn:hover .sign {
   width: 30%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-left: 20px;
 }
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-right: 10px;
 }
 /* button click effect*/
 .Btn:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
+}
+
+.input_create {
+  width: 100%;
+  height: 50px;
+  background: #c3c3c363;
+  padding: 1rem;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ant-modal-content {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-modal-title {
+  background-color: #ffffff4e !important;
+  display: none !important;
+}
+
+.notes-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 1rem;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.input_main_text {
+  background: orange;
+  border-radius: 1rem;
+}
+
+.photo_main {
+  font-size: 1.3rem;
+}
+
+.create_post {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.7px);
+  -webkit-backdrop-filter: blur(9.7px);
+
+  padding: 1rem;
+}
+
+.btn_main_create_submit {
+  width: 100%;
+  height: 20px;
+  background: #b9b9b958;
+  color: white;
+  text-align: center;
+  transition: all 0.2s linear;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+
+.btn_main_create_submit:hover{
+  background: #23232358;
+  color: rgb(255, 255, 255);
+
+}
+
+.photo_text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ant-modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ant-btn {
+  display: none !important;
+}
+
+.ant-modal-close-x {
+  display: none !important;
+}
+
+
+.form_create_inp{
+  width: 100%;
+  height:30px;
+  background: rgba(255, 255, 255, 0.233);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  margin-top: 1rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+
+
+
+/* .user_pen_edit{
+  font-size: 1rem;
+  color: white;
+  padding: 1rem;
+} */
+
+
+.user_pen_edit:active{
+  transform: scale(0.8);
+}
+
+
+.form_profile_edit_model{
+  width: 100%;
+  background: #bbbbbb6e;
+  font-size: 1rem;
+  color: white;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+
+.btn_profile_update_submit{
+  padding: 1rem;
+  color: rgb(255, 255, 255);
+  background: rgba(233, 191, 83, 0.693);
+  border-radius: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  transition: all 0.3s linear;
+}
+
+.btn_profile_update_submit:hover{
+  color: rgb(255, 255, 255);
+  background: rgba(255, 184, 6, 0.999);
+}
+
+.user_bio{
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffffd6;
+  margin-left: 1rem;
+}
+
+
+.home_card_bio{
+  font-size: 0.9rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  font-weight: 300;
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.775);
+}
+
+
+.profile_main_row{
+background: rgba(97, 135, 225, 0.38);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(10.2px);
+-webkit-backdrop-filter: blur(10.2px);
+  padding: 1rem;
 }

@@ -1,6 +1,6 @@
 import express from 'express'
 import {posting,posts,postsByQuery,connections,postUpdate,removePost} from '../controllers/posts.js';
-import { isLoggesIn} from '../middlewares/index.js';
+import { isLoggesIn } from '../middlewares/index.js';
 
 const router = express.Router()
 

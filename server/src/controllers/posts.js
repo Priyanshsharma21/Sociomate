@@ -70,7 +70,8 @@ export const posting = async (req, res) => {
 
 export const posts = async (req, res) => {
   try {
-    const allPosts = await Posts.find();
+    const allPosts = await Posts.find().sort({ _id: -1 })
+
     res.status(200).json({
       status: true,
       data: allPosts
@@ -84,6 +85,10 @@ export const posts = async (req, res) => {
   }
 }
 
+
+
+
+
 export const postsByQuery = async(req,res)=>{
   try {
   const { tags } = req.query;
@@ -92,7 +97,10 @@ export const postsByQuery = async(req,res)=>{
   } catch (error) {
       res.status(500).json({ status: false, error: error.message }); 
   }
-};
+}
+
+
+
 
 export const connections = async(req,res)=>{
   try {
@@ -107,7 +115,11 @@ export const connections = async(req,res)=>{
   } catch (error) {
       res.status(500).json({ status: false, error: error.message });  
   }
-};
+}
+
+
+
+
 
 export const postUpdate = async (req,res) => {
   try {
@@ -132,7 +144,10 @@ export const postUpdate = async (req,res) => {
       error: error.message,
     })
   }
-};
+}
+
+
+
 
 export const removePost = async (req, res) => {
   try {

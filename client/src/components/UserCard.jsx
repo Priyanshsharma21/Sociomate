@@ -6,6 +6,23 @@ const UserCard = () => {
 
 const user = JSON.parse(localStorage.getItem('user')) 
 
+
+const formatBioText = (bio) => {
+    if (bio) {
+      return bio
+        .split('.')
+        .map((sentence) => {
+          const words = sentence.trim().split(' ');
+          const formattedWords = words.map((word) =>
+            word.length > 1 ? word[0].toUpperCase() + word.slice(1) : word.toUpperCase()
+          );
+          return formattedWords.join(' ');
+        })
+        .join('. ');
+    }
+    return '';
+  };
+
     // console.log(user)
   return (
     <Link to={`/userprofile`} className="flex flex-col w-full card_user relative">
@@ -19,7 +36,12 @@ const user = JSON.parse(localStorage.getItem('user'))
 
         <div className="user_info mt-5">
             <div className="name_home_card mt-2">{user.name.toUpperCase()}</div>
-            <div className="name_home_card mt-2">{user.email}</div>
+
+            {user.bio && (<>
+                <div className="name_home_card home_card_bio  text-slate-300">
+                    {formatBioText(user.bio)}
+                </div>
+            </>)}
         </div>
     </Link>
   )

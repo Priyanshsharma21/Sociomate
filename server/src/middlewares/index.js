@@ -19,11 +19,12 @@ export const isLoggesIn = async(req,res,next)=>{
 
         if(!user) return res.status(401).json({status : false, message : "User Not Authenticated to access this route"})
 
+
         req.user_id = user.userId
 
         next()
 
     } catch (error) {
-        res.status(500).json({status : false, message : error.message})
+        res.status(500).json({status : false, message : error.message, middleware : "Middleware Message"})
     }
 }

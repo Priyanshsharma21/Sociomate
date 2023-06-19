@@ -29,13 +29,13 @@ const App = () => {
   }, [timer, token]);
 
   return (
-    <>
+    <div className="main_ref">
       {preLoader ? (
         <div className="preloader w-full h-screen flex flex-col justify-center items-center">
           <PreLoader />
         </div>
       ) : (
-        <div className="main_wrapper">
+        <div className="main_wrapper relative z-0">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
@@ -46,7 +46,7 @@ const App = () => {
           </Routes>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

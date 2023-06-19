@@ -4,32 +4,76 @@ import moment from 'moment'
 import { AiOutlineLike, AiTwotoneLike} from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsShare } from 'react-icons/bs'
+import CreatePost from './CreatePost'
 
 
 const Feed = () => {
     const [posts, setPosts] = useState([])
     const {VITE_URL} = import.meta.env
     const user = JSON.parse(localStorage.getItem('user')) 
+    const token = localStorage.getItem('token');
 
 
     useEffect(()=>{
         const fetchPost = async()=>{
+
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+            }
+
             try {
-                const res = await axios.get(`${VITE_URL}/getPosts`)
+                const res = await axios.get(`${VITE_URL}/getPosts`,options)
                 setPosts(res.data.data)
             } catch (error) {
                 alert(error.message)
             }
         }
         fetchPost()
-    },[])
+    },[posts.length])
+
+    const truncateContent = (content) => {
+        const MAX_LENGTH = 70;
+        if (content.length > MAX_LENGTH) {
+          return content.slice(0, MAX_LENGTH) + '...';
+        }
+        return content;
+      };
+    
+      const handleShowMore = (postId) => {
+        const updatedPosts = posts.map((post) => {
+          if (post._id === postId) {
+            return {
+              ...post,
+              showFullContent: true,
+            };
+          }
+          return post;
+        });
+        setPosts(updatedPosts);
+      };
+
+      const handleShowLess = (postId) => {
+        const updatedPosts = posts.map((post) => {
+          if (post._id === postId) {
+            return {
+              ...post,
+              showFullContent: false,
+            };
+          }
+          return post;
+        });
+        setPosts(updatedPosts);
+      };
 
 
-    // console.log(posts)
   return (
     <div className="feed ml-5">
+        <CreatePost />
+
         {posts?.map((post,i)=>(
-            <div className={`feed_card ${i > 0 ? 'mt-4' : ''}`} key={post._id}>
+            <div className={`feed_card ${i > 0 ? 'mt-4' : 'mt-4'}`} key={post._id}>
                 <div className="feed_user_infp flex">
                     <div className="img_feed_user rounded-full w-[40px] h-[40px]">
                         <img className="rounded-full w-[40px] h-[40px]" src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="image_url" />
@@ -48,9 +92,30 @@ const Feed = () => {
 
                 <div className="user_content mt-5">
                     <div className="post_feed_home">
-                        <div className="content text-slate-100">
-                            {post.content}
-                        </div>
+                    <div className="content text-slate-100">
+                    {post.showFullContent ? (
+                            post.content
+                            ) : (
+                            <>
+                                {post.content.slice(0, 70)}
+                                {post.content.length > 70 && '... '}
+                                <button
+                                className="text-primary-500 mt-2 underline ml-2"
+                                onClick={() => handleShowMore(post._id)}
+                                >
+                                Show more
+                                </button>
+                            </>
+                            )}
+                            {post.showFullContent && (
+                            <button
+                                className="text-primary-500 mt-2 underline ml-2"
+                                onClick={() => handleShowLess(post._id)}
+                            >
+                                Show less
+                            </button>
+                            )}
+                    </div>
 
                        {post?.photo?.secure_url && (<>
                         <div className="image_main_home_post">

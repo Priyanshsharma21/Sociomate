@@ -7,7 +7,7 @@ import postRoutes from './routes/postRoutes.js'
 const app = express()
 
 // global middlewares
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({extended : true}))
 
 // cors middleware
