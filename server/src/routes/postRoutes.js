@@ -4,7 +4,6 @@ import { isLoggesIn} from '../middlewares/index.js';
 
 const router = express.Router()
 
-
 router.post('/posting',isLoggesIn,posting);
 router.get('/getPosts',isLoggesIn,posts);
 router.get('/findPost',isLoggesIn,postsByQuery);

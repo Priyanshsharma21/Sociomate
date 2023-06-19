@@ -9,6 +9,10 @@ const userSchema = new Schema({
     required: true,
     lowercase:true
   },
+  bio:{
+    type: String,
+    lowercase:true
+  },
   mobile: {
     type: String,
     required: true,

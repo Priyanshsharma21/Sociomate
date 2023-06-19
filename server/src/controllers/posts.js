@@ -81,7 +81,7 @@ export const postUpdate = async (req,res) => {
         postId
       } = req.params
 
-      const post = await Posts.findByIdAndUpdate(userId, req.body, {
+      const post = await Posts.findByIdAndUpdate(postId, req.body, {
         new: true
       })
       if (!post) return res.status(404).json({

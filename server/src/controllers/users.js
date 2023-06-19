@@ -275,21 +275,15 @@ export const connections = async (req, res) => {
   }
 };
 
-
-
-
 export const profileUpdate = async (req, res) => {
   try {
     const {
       userId
     } = req.params
 
-
     const user = await Users.findByIdAndUpdate(userId, req.body, {
       new: true
     })
-
-
 
     if (!user) return res.status(404).json({
       status: false,
