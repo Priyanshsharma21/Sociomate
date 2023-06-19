@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from "react-router-dom";
+import withContainer from '../hof/Hof';
 
 
 const Search = () => {
@@ -14,4 +15,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default withContainer(Search)
