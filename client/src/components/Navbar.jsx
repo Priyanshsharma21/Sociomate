@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem('user')) 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,7 +85,7 @@ const Navbar = () => {
                 Connections
             </Link>
             <Link
-                to="/profile"
+                to={`/profile/${user?._id}`}
                 className="text-gray-300 hover:bg-gray-700 hover:bg-opacity-50 px-3 py-2 rounded-md text-sm font-medium"
             >
                 Profile
@@ -137,7 +138,7 @@ const Navbar = () => {
       >
         {(ref) => (
           <div className="xl:hidden">
-            <div ref={ref} className="px-2 pt-2 pb-3 space-y-1">
+            <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 mobile_break_bg">
               <Link
                 to={`/`}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:bg-opacity-50"
@@ -151,7 +152,7 @@ const Navbar = () => {
                 Connections
               </Link>
               <Link
-                to={`/profile`}
+                to={`/profile/${user?._id}`}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:bg-opacity-50"
               >
                 Profile

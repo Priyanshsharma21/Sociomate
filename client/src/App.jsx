@@ -40,7 +40,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/connection" element={<Connection />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/search" element={<Search />} />
             <Route path="/userprofile" element={<UserProfile />} />
           </Routes>

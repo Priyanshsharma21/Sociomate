@@ -25,13 +25,13 @@ const formatBioText = (bio) => {
 
     // console.log(user)
   return (
-    <Link to={`/userprofile`} className="flex flex-col w-full card_user relative">
+    <Link to={`/profile/${user?._id}`} className="flex flex-col w-full card_user relative">
         <div className="banner_home_card">
-            <img className="object-cover w-full h-full" src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="home_card" />
+            <img loading="lazy" className="object-cover w-full h-full" src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="home_card" />
         </div>
 
         <div className="img_profile rounded-full absolute">
-            <img className="object-cover w-full h-full rounded-full" src="https://source.unsplash.com/1600x900/?nature" alt="home_card" />
+            <img loading="lazy" className="object-cover w-full h-full rounded-full" src="https://source.unsplash.com/1600x900/?nature" alt="home_card" />
         </div>
 
         <div className="user_info mt-5">

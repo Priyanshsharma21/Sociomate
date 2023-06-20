@@ -13,6 +13,9 @@ const userSchema = new Schema({
     type: String,
     lowercase:true
   },
+  slink : {
+    type : String,
+  },
   mobile: {
     type: String,
     required: true,

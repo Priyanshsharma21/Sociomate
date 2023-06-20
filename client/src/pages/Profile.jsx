@@ -1,71 +1,144 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import withContainer from '../hof/Hof';
-import {Row, Col } from 'antd'
-import { useNavigate } from 'react-router-dom';
-import { BsFillPencilFill, BsPencil } from 'react-icons/bs'
+import { Row, Col } from 'antd';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { BsFillPencilFill } from 'react-icons/bs';
 import { Button, Modal } from 'antd';
-import { LoginLoader } from '../components/PreLoader.jsx'
-import axios from 'axios'
+import { LoginLoader, PreLoader } from '../components/PreLoader.jsx';
+import axios from 'axios';
+import { ProfilePost } from '../components';
 
 const Profile = () => {
-  const user = JSON.parse(localStorage.getItem('user')) 
-  const navigate = useNavigate()
+  const { uid } = useParams();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
+  const [userPosts, setUserPosts] = useState([]);
   const token = localStorage.getItem('token');
+  const [postLoader, setPostLoader] = useState(false);
+  const [user, setUser] = useState(null)
+  const loggedInuser = JSON.parse(localStorage.getItem('user')) 
 
   const [formData, setFormData] = useState({
-    name : user.name,
-    email : user.email,
-    mobile : user.mobile,
-    bio : user.bio ? user.bio : ""
-  })
+    name: '',
+    email: '',
+    mobile: '',
+    bio: '',
+    slink: '',
+  });
+
+
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const { VITE_URL } = import.meta.env;
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        };
+
+        const res = await axios.get(`${VITE_URL}/user/${uid}`, options);
+        if (res.data.status === true) {
+          const user = res.data.data;
+          setFormData({
+            name: user.name,
+            email: user.email,
+            mobile: user.mobile,
+            bio: user.bio ? user.bio : '',
+            slink: user.slink ? user.slink : '',
+          });
+
+          setUser(res.data.data)
+        } else {
+          alert('Something Went Wrong');
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    getUserData();
+  }, [uid]);
+
 
   // console.log(user)
 
-  const handleLogout = async()=>{
+
+  // console.log(user)
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        setPostLoader(true);
+        const { VITE_URL } = import.meta.env;
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        };
+
+        const res = await axios.get(`${VITE_URL}/postbyuser/${uid}`, options);
+        if (res.data.status === true) {
+          setPostLoader(false);
+          setUserPosts(res.data.data);
+        } else {
+          setPostLoader(false);
+          alert('Something Went Wrong');
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    getPosts();
+  }, [uid]);
+
+  const handleLogout = async () => {
     try {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      navigate('/auth')
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      navigate('/auth');
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoader(true)
+    setLoader(true);
     try {
-      const { _id } = user
-      const { name, email, mobile, bio } = formData
-      const {VITE_URL} = import.meta.env
+      const user = JSON.parse(localStorage.getItem('user'));
+      const { _id } = user;
+      const { name, email, mobile, bio, slink } = formData;
+      const { VITE_URL } = import.meta.env;
 
       const options = {
         headers: {
-            'Authorization': `Bearer ${token}`
-          }
-      }
+          'Authorization': `Bearer ${token}`,
+        },
+      };
 
       const res = await axios.put(`${VITE_URL}/profileUpdate/${_id}`, {
         name,
         email,
         mobile,
         bio,
-      },options);
+        slink,
+      }, options);
 
       // Handle success or display appropriate message
-      console.log('Profile updated successfully:', res.data);
-      localStorage.setItem('user', JSON.stringify(res.data.data))
-      if(res.data.status === true){
-        alert("Profile Updated Successfully")
+      localStorage.setItem('user', JSON.stringify(res.data.data));
+      if (res.data.status === true) {
+        alert('Profile Updated Successfully');
       }
-      setLoader(false)
+      setLoader(false);
 
       // Close the modal
       setOpen(false);
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       console.error('Error updating profile:', error);
     }
   };
@@ -77,7 +150,6 @@ const Profile = () => {
       [name]: value,
     }));
   };
-
 
   const formatBioText = (bio) => {
     if (bio) {
@@ -95,39 +167,39 @@ const Profile = () => {
     return '';
   };
 
-  // console.log(user)
-
   return (
     <div className='profile'>
-     <Row className="profile_main_row">
-      <Col span={24}>
-        <div className="profile_pic w-full ">
-          <img className="h-[200px] w-full rounded-sm" src="https://source.unsplash.com/1600x900/?motivation" alt="natureBg" />
+      <Row className="profile_main_row">
+        <Col span={24}>
+          <div className="profile_pic w-full ">
+            <img loading="lazy" className="h-[200px] w-full rounded-sm" src="https://source.unsplash.com/1600x900/?motivation" alt="natureBg" />
 
-          <div className="absolute img_profile_pic">
-            <img className="rounded-full img_pro" src="https://source.unsplash.com/1600x900/?face" alt="anime" />
+            <div className="absolute img_profile_pic">
+              <img loading="lazy" className="rounded-full img_pro" src="https://source.unsplash.com/1600x900/?face" alt="anime" />
+            </div>
           </div>
-        </div>
 
-        <div className="profile_details flex justify-between items-center">
-          <div className="name_on_profile">
-            {user?.name.toUpperCase()}
-          </div>
-         
-         <div className="left_profile_top flex">
-         <div className="edit_user_profile flex justify-center items-center" onClick={() => setOpen(true)}>
-            <BsFillPencilFill className="user_pen_edit text-white mr-3 cursor-pointer"/>
-         </div>
+          <div className="profile_details flex justify-between items-center">
+            <div className="name_on_profile">
+              {formData.name && formData.name.toUpperCase()}
+            </div>
 
-                  <Modal
-                      title=""
-                      centered
-                      open={open}
-                      onCancel={() => setOpen(false)}
-                      width={300}
-                      className='todomodel'
-                  >
-                    <form onSubmit={handleSubmit}>
+            <div className="left_profile_top flex">
+                  {loggedInuser?._id === uid && (
+                    <div className="edit_user_profile flex justify-center items-center" onClick={() => setOpen(true)}>
+                      <BsFillPencilFill className="user_pen_edit text-white mr-3 cursor-pointer" />
+                    </div>
+                  )}
+
+              <Modal
+                title=""
+                centered
+                open={open}
+                onCancel={() => setOpen(false)}
+                width={300}
+                className='todomodel'
+              >
+                <form onSubmit={handleSubmit}>
                   <input
                     type="text"
                     name="name"
@@ -152,6 +224,14 @@ const Profile = () => {
                     required
                     className="form_profile_edit_model"
                   />
+                  <input
+                    type="text"
+                    name="slink"
+                    placeholder='Website, Social Media Link (optional)'
+                    value={formData.slink}
+                    onChange={handleInputChange}
+                    className="form_profile_edit_model"
+                  />
                   <textarea
                     name="bio"
                     value={formData.bio}
@@ -160,42 +240,88 @@ const Profile = () => {
                     className="form_profile_edit_model"
                     placeholder="Enter your bio...."
                   ></textarea>
-                  <button className='btn_profile_update_submit' type="submit">
-                  {loader ? (
-                          <LoginLoader />
-                      ):(
-                          <>Submit</>
+                    <button className='btn_profile_update_submit' type="submit">
+                      {loader ? (
+                        <LoginLoader />
+                      ) : (
+                        <>Submit</>
                       )}
-                  </button>
+                    </button>
                 </form>
-                  </Modal>
+              </Modal>
 
+              {loggedInuser?._id === uid && (
+                <div className="logout ml-5" onClick={handleLogout}>
+                  <button class="Btn" >
+                    <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
 
-          <div className="logout ml-5" onClick={handleLogout}>
-          <button class="Btn" >
-              <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
-              
-              <div class="text">Logout</div>
-            </button>
+                    <div class="text">Logout</div>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-         </div>
+        </Col>
 
+        <Col span={24}>
+          {formData.bio && (
+            <div className="user_bio">
+              {formatBioText(formData.bio)}
+            </div>
+          )}
 
-        </div>
-      </Col>
+          {formData.slink && (
+            <div className="user_slink mt-5">
+              <a className="text-blue-400 font-semibold a_of_profile" target="_blank" rel="noopener noreferrer" href={formData.slink}>Website</a>
 
-      <Col span={24}>
-        {user.bio && (
-          <div className="user_bio">
-             {formatBioText(user.bio)}
+              <a className="text-blue-400 font-semibold ml-5 a_of_profile" target="_blank" rel="noopener noreferrer" href={`mailto:${formData.email}`}>Contact</a>
+            </div>
+          )}
+
+          <div className="user_slink mt-5 flex">
+            <div className="text-blue-400 font-semibold a_of_profile cursor-pointer">
+              {user?.connections.length} followers
+            </div>
+            <div className="text-blue-400 font-semibold a_of_profile ml-5 cursor-pointer">
+              {user?.connections.length} connections
+            </div>
           </div>
-        )}
-      </Col>
-     </Row>
+        </Col>
+      </Row>
 
-      
+      <Row className="profile_main_row mt-10">
+        <Col span={24}>
+          <div className="nav_of_profile_posts flex justify-between items-center">
+            <div className="messagenfollowers">
+              <div className="activity font-semibold text-white">Activity</div>
+              <div className="text-blue-400 font-semibold a_of_profile cursor-pointer mt-3">
+                {user?.connections.length} followers
+              </div>
+            </div>
+
+
+            {loggedInuser?._id === uid && (
+              <div className="create_a_post">
+                <Link className="profile_create_post" to={'/'}>Create a Post</Link>
+              </div>
+              )}
+          </div>
+
+          {postLoader ? (
+            <div className="preloader-div">
+              <PreLoader />
+            </div>
+          ) : (
+            <div className="profile-post-list">
+              {userPosts.map((post) => (
+                <ProfilePost key={post._id} post={post} />
+              ))}
+            </div>
+          )}
+        </Col>
+      </Row>
     </div>
-  )
-}
+  );
+};
 
 export default withContainer(Profile);

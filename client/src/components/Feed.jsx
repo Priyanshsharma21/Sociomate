@@ -5,7 +5,9 @@ import { AiOutlineLike, AiTwotoneLike} from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsShare } from 'react-icons/bs'
 import CreatePost from './CreatePost'
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Link } from 'react-router-dom'
 
 const Feed = () => {
     const [posts, setPosts] = useState([])
@@ -67,6 +69,8 @@ const Feed = () => {
         setPosts(updatedPosts);
       };
 
+    //   console.log(posts)
+
 
   return (
     <div className="feed ml-5">
@@ -74,21 +78,26 @@ const Feed = () => {
 
         {posts?.map((post,i)=>(
             <div className={`feed_card ${i > 0 ? 'mt-4' : 'mt-4'}`} key={post._id}>
-                <div className="feed_user_infp flex">
+                <Link to={`/profile/${post?.user?._id}`} className="feed_user_infp flex">
                     <div className="img_feed_user rounded-full w-[40px] h-[40px]">
-                        <img className="rounded-full w-[40px] h-[40px]" src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="image_url" />
+                        <LazyLoadImage
+                            effect="blur" 
+                            src="https://source.unsplash.com/1600x900/?nature,photography,technology"
+                            alt="image_url"
+                            className="rounded-full w-[40px] h-[40px]"
+                         />
                     </div>
 
                     <div className="user_info_feed ml-3">
                         <div className="name_of_user text-slate-100">
-                            {user?.name.toUpperCase()}
+                            {post?.user?.name.toUpperCase()}
                         </div>
 
                         <div className="created_user_At text-slate-300">
                             {moment(post.createdAt).fromNow()}
                         </div>
                     </div>
-                </div>
+                </Link>
 
                 <div className="user_content mt-5">
                     <div className="post_feed_home">
@@ -119,7 +128,7 @@ const Feed = () => {
 
                        {post?.photo?.secure_url && (<>
                         <div className="image_main_home_post">
-                            <img src={post?.photo.secure_url} className="w-full h-full object-cover image_main_home_post" alt="feed_post" />
+                            <img loading="lazy" src={post?.photo.secure_url} className="w-full h-full object-cover image_main_home_post" alt="feed_post" />
                         </div>
                        </>)}
                     </div>

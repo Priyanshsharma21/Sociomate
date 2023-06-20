@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {Row, Col} from 'antd'
 import { LoginLoader } from './PreLoader.jsx'
 import { Button, Modal } from 'antd';
 import { FcStackOfPhotos } from 'react-icons/fc'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const CreatePost = () => {
   const [formData, setFormData] = useState({
@@ -76,8 +77,13 @@ const CreatePost = () => {
     <div className="w-full create_post">
       <Row>
           <Col span={2} className="flex justify-center items-center">
-              <Link to={`/profile`} className="img_feed_user rounded-full w-[40px] h-[40px]">
-                  <img className="rounded-full w-[40px] h-[40px]" src="https://source.unsplash.com/1600x900/?face" alt="image_url" />
+              <Link to={`/profile/${user?._id}`} className="img_feed_user rounded-full w-[40px] h-[40px]">
+              <LazyLoadImage
+                  effect="blur" // Adds the blur effect while the image is loading
+                  src="https://source.unsplash.com/1600x900/?face" // The image source
+                  alt="image_url"
+                  className="rounded-full w-[40px] h-[40px]"
+                />
               </Link>
           </Col>
 
@@ -85,10 +91,10 @@ const CreatePost = () => {
               <div className="create_me p-5">
                 <form onSubmit={handleSubmit} className="flex flex-col">
 
-                  <textarea type="text" placeholder='Start a Post' required className="input_create" name="content" onChange={handleChange} />
+                  <textarea type="text" autoFocus placeholder='Start a Post' required className="input_create" name="content" onChange={handleChange} />
 
 
-                  <input className="form_create_inp" type="text" onChange={handleTagChange} name="tags" placeholder="Enter Tags (comma-separated)" />
+                  <input required className="form_create_inp" type="text" onChange={handleTagChange} name="tags" placeholder="Enter Tags (comma-separated)" />
 
                   <div className="flex cursor-pointer mt-3 ml-3" onClick={() => setOpen(true)}>
                       <div className="photo">

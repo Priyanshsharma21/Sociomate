@@ -67,10 +67,34 @@ export const posting = async (req, res) => {
 
 
 
+export const postByUser = async(req,res)=>{
+  try {
+    const {userId} = req.params
+
+    const userExistOrNot = await Users.findById(userId)
+
+
+    if(!userExistOrNot) return res.status(404).json({status : false, message : "User Not Found"})
+
+    const postByUsers = await Posts.find({user : userId}).populate('user')
+
+
+    res.status(200).json({status : true, data : postByUsers})
+
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message
+    });
+  }
+}
+
+
+
 
 export const posts = async (req, res) => {
   try {
-    const allPosts = await Posts.find().sort({ _id: -1 })
+    const allPosts = await Posts.find().sort({ _id: -1 }).populate('user')
 
     res.status(200).json({
       status: true,
