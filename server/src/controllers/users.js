@@ -62,12 +62,12 @@ export const signup = async (req, res) => {
       });
     }
 
-    if (!isValidPassword(password)) {
-      return res.status(400).json({
-        status: false,
-        message: 'Password must be 8 char long, combination of upper and lower case and must contain a special symbole.',
-      });
-    }
+    // if (!isValidPassword(password)) {
+    //   return res.status(400).json({
+    //     status: false,
+    //     message: 'Password must be 8 char long, combination of upper and lower case and must contain a special symbole.',
+    //   });
+    // }
 
 
     //hashing the password
@@ -177,6 +177,18 @@ export const logout =async (req, res, next) => {
   }
 }
 
+export const getAllUsers = async (req, res) => {
+  try{ 
+    const users = await Users.find()
+    res.status(200).json({ success: true, data: users });
+  }catch(error){
+    res.status(500).json({status : false, message:error.message})
+  }
+}
+
+
+
+
 
 
 export const fetchUser = async (req, res) => {
@@ -212,7 +224,6 @@ export const getUserByQuery = async (req, res) => {
       mobile
     } = req.query
 
-    // console.log(name,email,mobile)
 
 
     const user = await Users.find({
@@ -260,10 +271,10 @@ export const connections = async (req, res) => {
     if (!isUser) return res.status(404).json({ status: false, message: "No User Found" });
     if (!isConnectionPresent) return res.status(404).json({ status: false, message: "No Connection Found" });
 
-    if (isUser.connections.includes(connectionId)) {
+    if (isConnectionPresent.connections.includes(userId)) {
       // Connection already exists, so remove it
-      isUser.connections.pull(connectionId);
-      await isUser.save();
+      isConnectionPresent.connections.pull(userId);
+      await isConnectionPresent.save();
 
       res.status(200).json({
         status: true,
@@ -272,13 +283,13 @@ export const connections = async (req, res) => {
       });
     } else {
       // Connection doesn't exist, so add it
-      isUser.connections.push(connectionId);
-      await isUser.save();
+      isConnectionPresent.connections.push(userId);
+      await isConnectionPresent.save();
 
       res.status(200).json({
         status: true,
         message: "Connection added",
-        data: isUser,
+        data: isConnectionPresent,
       });
     }
   } catch (error) {

@@ -115,8 +115,11 @@ export const posts = async (req, res) => {
 
 export const postsByQuery = async(req,res)=>{
   try {
-  const { tags } = req.query;
-  const posts = await Posts.find({ tags: { $in: tags } });
+  const { tags } = req.query
+  console.log(tags)
+
+
+  const posts = await Posts.find({ tags: { $in: tags } }).populate("user");
   res.status(200).json({status:true,data:posts});
   } catch (error) {
       res.status(500).json({ status: false, error: error.message }); 
@@ -234,3 +237,106 @@ export const removePost = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+// Add comment to a post
+export const addComment = async (req, res) => {
+  const { content, userId } = req.body;
+  const { postId } = req.params
+
+  try {
+    const post = await Posts.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const comment = {
+      content,
+      user: userId,
+    };
+
+    post.comments.push(comment);
+    await post.save();
+
+    res.status(201).json({ status : true, message: 'Comment added successfully', comment });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add comment' });
+  }
+};
+
+
+
+
+// Remove comment from a post
+export const removeComment = async (req, res) => {
+  const { postId, commentId, userId } = req.params;
+
+  try {
+    const post = await Posts.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const comment = post.comments.find((c) => c.id === commentId);
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    if (comment.user.toString() !== userId) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    post.comments = post.comments.filter((c) => c.id !== commentId);
+    await post.save();
+
+    res.status(200).json({ message: 'Comment removed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to remove comment' });
+  }
+};
+
+
+
+
+
+// Like a post
+export const likePost = async (req, res) => {
+  const { postId, userId } = req.params;
+
+  try {
+    const post = await Posts.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+
+    const likedUserIndex = post.likes.find((like) => {
+      return like.user.toString() === userId
+    });
+
+
+
+    if (!likedUserIndex) {
+      post.likes.push({ user: userId });
+      await post.save();
+      return res.status(201).json({ message: 'You Liked This Post' });
+    }
+      post.likes.pull(likedUserIndex._id);
+       await post.save();
+      return res.status(201).json({ message: 'Like Removed' });
+    
+    
+    
+
+    // res.status(200).json({ message: 'Like updated successfully', likes: post.likes });
+  } catch (error) {
+    res.status(500).json({status : false, message : error.message});
+  }
+};
+

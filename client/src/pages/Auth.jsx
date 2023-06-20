@@ -41,6 +41,8 @@ const Auth = () => {
         alert("Enter all the details")
       }
     } catch (error) {
+         setLoading(false)
+
         alert(error.message)
       console.error(error);
     }
@@ -59,6 +61,7 @@ const Auth = () => {
           alert("Something Went Wrong")
         }
     } catch (error) {
+        setLoading(false)
         alert(error.message)
       console.error(error);
     }
@@ -149,7 +152,7 @@ const Auth = () => {
               className="input"
               type="email"
               name="email"
-              placeholder="Password"
+              placeholder="Email"
               value={registerForm.email}
               onChange={handleRegisterChange}
               required

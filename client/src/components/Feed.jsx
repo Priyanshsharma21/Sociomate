@@ -74,7 +74,6 @@ const Feed = () => {
 
       const handleDeletePost = async(e,id)=>{
         try {
-            console.log(id)
             const options = {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -169,23 +168,33 @@ const Feed = () => {
                        </>)}
                     </div>
                 </div>
+                {/*  */}
+                <div className="like_count_detail mt-3 ml-1 text-slate-300">
+                  You and {post?.likes?.length} liked this post
+                </div>
 
+                <hr className="mt-3 text-slate-400 break_line"/>
                 <div className="like_share_comment mt-5 flex w-full justify-around">
-                    <div className="like flex cursor-pointer">
-                        
-                        <AiOutlineLike className='text-white like_share_comment'/>
-                        <div className="like_text text-center ml-3">Like</div>
-                    </div>
+                    <Link to={`/post/detail/${post?._id}`} className="flex w-full justify-around">
+                        <div className="like flex cursor-pointer">
+                            {post?.likes?.some((like) => like.user === user._id) ? (
+                            <AiTwotoneLike className="text-white like_share_comment" />
+                            ) : (
+                            <AiOutlineLike className="text-white like_share_comment" />
+                            )}
+                            <div className="like_text text-center ml-3">Like</div>
+                        </div>
 
-                    <div className="comment flex  cursor-pointer">
-                        <BiCommentDetail className='text-white like_share_comment'/>
-                        <div className="like_text text-center ml-3">Comment</div>
-                    </div>
+                        <div className="comment flex  cursor-pointer">
+                            <BiCommentDetail className='text-white like_share_comment'/>
+                            <div className="like_text text-center ml-3">Comment</div>
+                        </div>
 
-                    <div className="share flex cursor-pointer">
-                        <BsShare className='text-white like_share_comment'/>
-                        <div className="like_text text-center ml-3">Share</div>
-                    </div>
+                        <div className="share flex cursor-pointer">
+                            <BsShare className='text-white like_share_comment'/>
+                            <div className="like_text text-center ml-3">Share</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         ))}

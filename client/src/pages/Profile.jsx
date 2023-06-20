@@ -18,6 +18,9 @@ const Profile = () => {
   const [postLoader, setPostLoader] = useState(false);
   const [user, setUser] = useState(null)
   const loggedInuser = JSON.parse(localStorage.getItem('user')) 
+  const [connected, setConnected] = useState(false);
+
+  // console.log(connected)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,6 +29,7 @@ const Profile = () => {
     bio: '',
     slink: '',
   });
+
 
 
 
@@ -51,6 +55,11 @@ const Profile = () => {
           });
 
           setUser(res.data.data)
+          if(res.data.data.connections.includes(loggedInuser?._id)){
+            setConnected(true)
+          }else(
+            setConnected(true)
+          )
         } else {
           alert('Something Went Wrong');
         }
@@ -60,13 +69,39 @@ const Profile = () => {
     };
 
     getUserData();
-  }, [uid]);
+  }, [uid,connected]);
+
+
+  const handleConnection = async () => {
+    try {
+      const { VITE_URL } = import.meta.env;
+      const options = {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      };
+
+
+      const res = await axios.put(`${VITE_URL}/connections/${loggedInuser._id}/${uid}`, {}, options);
+      if (res.data.status === true) {
+        setUser(res.data.data)
+        if(res.data.status === 'Connection added'){
+          setConnected(true);
+        }else{
+          setConnected(false);
+        }
+        alert(res.data.message)
+      } else {
+        alert('Something Went Wrong');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 
   // console.log(user)
 
-
-  // console.log(user)
 
   useEffect(() => {
     const getPosts = async () => {
@@ -94,6 +129,18 @@ const Profile = () => {
 
     getPosts();
   }, [uid]);
+
+
+
+  // useEffect(() => {
+  //   if (loggedInuser && user) {
+  //     console.log(user.connections)
+  //     setConnected(user.connections.includes(loggedInuser._id));
+  //   }
+  // }, [loggedInuser, user])
+
+
+
 
   const handleLogout = async () => {
     try {
@@ -286,6 +333,14 @@ const Profile = () => {
               {user?.connections.length} connections
             </div>
           </div>
+
+          <div className="follow_btn_main mt-5">
+            {loggedInuser?._id !== uid && (
+              <button className="follow_btn" onClick={handleConnection}>
+                {user?.connections?.includes(loggedInuser?._id) ? 'Connected' : "Connect"}
+              </button>
+            )}
+        </div>
         </Col>
       </Row>
 

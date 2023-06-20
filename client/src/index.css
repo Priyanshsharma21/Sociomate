@@ -421,7 +421,8 @@ input:hover {
   }
 }
 
-.feed_card,.post_detail_card {
+.feed_card,
+.post_detail_card {
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
@@ -432,7 +433,7 @@ input:hover {
   padding: 1rem;
 }
 
-.post_detail_card{
+.post_detail_card {
   margin-left: 0.5rem;
 }
 
@@ -844,32 +845,77 @@ input:hover {
   transform: scale(0.91);
 }
 
-
 /* 1149 */
 
 @media (max-width: 1149px) {
-  .play_me{
+  .play_me {
     display: none;
   }
 }
 
+.connection_heading {
+  background-color: rgba(255, 255, 255, 0.347);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  margin-left: 0.2rem;
+
+  font-size: 2rem;
+}
+
+.connectionCard {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
 
 @media (max-width: 991px) {
-  .post_detail_card{
+  .post_detail_card {
     margin-top: 2rem;
     margin-left: 0px;
   }
-}
 
-@media (max-width: 498px) {
-  .bio_of_user{
-    display: none;
+  .connection_heading {
+    margin-top: 1rem;
+  }
+
+  .connectionCard {
+    margin-left: 0rem;
+    width: 100%;
+    margin-top: 1rem;
   }
 }
 
+.comment_structure {
+  margin-top: 1rem;
+  margin-left: 0.4rem;
+  background: rgba(182, 182, 182, 0.452);
+  padding: 1rem;
+  border-radius: 1rem;
+}
 
+@media (max-width: 498px) {
+  .bio_of_user {
+    display: none;
+  }
 
+  .connection_heading {
+    font-size: 1rem;
+  }
 
+  .like_share_comment {
+    font-size: 1rem;
+  }
+
+  .comment,
+  .share {
+    margin-left: 0.3rem;
+  }
+}
 
 .wrapper {
   width: 200px;
@@ -886,7 +932,7 @@ input:hover {
   background-color: #fff;
   left: 15%;
   transform-origin: 50%;
-  animation: circle7124 .5s alternate infinite ease;
+  animation: circle7124 0.5s alternate infinite ease;
 }
 
 @keyframes circle7124 {
@@ -910,27 +956,27 @@ input:hover {
 
 .circle:nth-child(2) {
   left: 45%;
-  animation-delay: .2s;
+  animation-delay: 0.2s;
 }
 
 .circle:nth-child(3) {
   left: auto;
   right: 15%;
-  animation-delay: .3s;
+  animation-delay: 0.3s;
 }
 
 .shadow {
   width: 20px;
   height: 4px;
   border-radius: 50%;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0, 0, 0, 0.9);
   position: absolute;
   top: 62px;
   transform-origin: 50%;
   z-index: -1;
   left: 15%;
   filter: blur(1px);
-  animation: shadow046 .5s alternate infinite ease;
+  animation: shadow046 0.5s alternate infinite ease;
 }
 
 @keyframes shadow046 {
@@ -940,28 +986,106 @@ input:hover {
 
   40% {
     transform: scaleX(1);
-    opacity: .7;
+    opacity: 0.7;
   }
 
   100% {
-    transform: scaleX(.2);
-    opacity: .4;
+    transform: scaleX(0.2);
+    opacity: 0.4;
   }
 }
 
 .shadow:nth-child(4) {
   left: 45%;
-  animation-delay: .2s
+  animation-delay: 0.2s;
 }
 
 .shadow:nth-child(5) {
   left: auto;
   right: 15%;
-  animation-delay: .3s;
+  animation-delay: 0.3s;
 }
 
-
-.bio_of_user{
+.bio_of_user {
   font-size: 0.8rem;
   color: rgb(215, 215, 215);
+}
+
+.comment_this_post {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.comment_inp {
+  width: 100%;
+  background: #ffffff3f;
+  padding: 1rem;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  font-weight: 500;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+}
+
+.submit_comment {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgb(255, 225, 0);
+  color: rgb(30, 30, 30);
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  transition: all 0.2s linear;
+}
+
+.submit_comment:active {
+  transform: scale(0.9);
+}
+
+.break_line {
+  color: #ffffff8c !important;
+}
+
+.follow_btn {
+  padding: 0.4rem 1rem 0.4rem 1rem;
+  background: rgb(35, 105, 255);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  width: max-content;
+  height: max-content;
+  border-radius: 1rem;
+  transition: all 0.2s linear;
+}
+
+.follow_btn:hover {
+  background: rgb(65, 125, 255);
+}
+
+.follow_btn:active {
+  background: rgb(65, 125, 255);
+  transform: scale(0.91);
+}
+
+.follow_btn_main {
+  margin-left: 1rem;
+}
+
+.card_wala_bio {
+  max-width: 200px;
+  text-align: center;
+}
+
+.card_connection_wala {
+  width: 100%;
+  height: 370px;
+}
+
+.searchbox {
+  background: rgba(255, 255, 255, 0.19);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.8px);
+  -webkit-backdrop-filter: blur(9.8px);
+  padding: 1rem;
 }

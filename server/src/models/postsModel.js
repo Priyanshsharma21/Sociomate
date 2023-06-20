@@ -17,10 +17,15 @@ const postSchema = new Schema({
     minlength: 1,
     // maxlength: 280
   },
-  likes: {
-    type: [Schema.Types.ObjectId],
-    default: [],
-  },
+  
+  likes : [
+    {
+        user : {
+            type : Schema.ObjectId,
+            ref : 'User',
+        }
+    }
+],
 
   photo: {
     id: {

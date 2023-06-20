@@ -61,7 +61,6 @@ const EditPost = () => {
             user : user._id
           }
 
-          console.log(postBody)
     
             const options = {
                 headers: {
