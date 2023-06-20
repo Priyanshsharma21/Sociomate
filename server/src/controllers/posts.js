@@ -124,6 +124,20 @@ export const postsByQuery = async(req,res)=>{
 }
 
 
+export const singlePost = async(req,res)=>{
+  try {
+    const { id } = req.params
+    const post = await Posts.findById(id).populate("user");
+
+    if(!post) return res.status(404).json({status : false, message : "Post Not Found"})
+    
+    res.status(200).json({status:true,data:post});
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message }); 
+    }
+}
+
+
 
 
 export const connections = async(req,res)=>{
@@ -151,9 +165,31 @@ export const postUpdate = async (req,res) => {
       postId
     } = req.params
 
-    const post = await Posts.findByIdAndUpdate(userId, req.body, {
+
+    const updatedPost = req.body;
+
+    if (updatedPost.photo !== "") {
+      const post = await Posts.findById(postId)
+
+
+      const imageId = post.photo.id
+
+      await cloudinary.uploader.destroy(imageId)
+
+      const photoUrl = await cloudinary.uploader.upload(req.body.photo, {
+          folder: "socioposts"
+      })
+
+      updatedPost.photo = {
+          id: photoUrl.public_id,
+          secure_url: photoUrl.secure_url
+      }
+  }
+
+    const post = await Posts.findByIdAndUpdate(postId, updatedPost, {
       new: true
     })
+
     if (!post) return res.status(404).json({
       status: false,
       message: 'No user found',
@@ -162,6 +198,8 @@ export const postUpdate = async (req,res) => {
       status: true,
       message: "post updated successfully"
     })
+
+
   } catch (error) {
     res.status(500).json({
       status: false,
@@ -175,9 +213,10 @@ export const postUpdate = async (req,res) => {
 
 export const removePost = async (req, res) => {
   try {
-    const { postId } = req.params;
-    const user = await Users.findOneAndDelete({ _id: postId });
-    if (!user) {
+    const { postId } = req.params
+    
+    const post = await Posts.findByIdAndDelete(postId)
+    if (!post) {
       return res.status(404).json({
         status: false,
         error: 'Post not found',
@@ -187,6 +226,7 @@ export const removePost = async (req, res) => {
       status: true,
       message: 'Post successfully removed',
     });
+
   } catch (error) {
     res.status(500).json({
       status: false,

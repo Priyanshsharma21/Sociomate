@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PreLoader } from "./components/PreLoader.jsx";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Auth, Connection, Home, Profile, Search } from "./pages";
+import { Auth, Connection, Home, Profile, Search,EditPost, PostDetails } from "./pages";
 import UserProfile from "./pages/UserProfile.jsx";
 
 
@@ -43,6 +43,9 @@ const App = () => {
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/search" element={<Search />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/post/edit/:postId" element={<EditPost />} />
+            <Route path="/post/detail/:postId" element={<PostDetails />} />
+
           </Routes>
         </div>
       )}

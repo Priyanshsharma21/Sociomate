@@ -8,6 +8,9 @@ import CreatePost from './CreatePost'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from 'react-router-dom'
+import { BsPencil } from 'react-icons/bs'
+import { MdDeleteOutline } from 'react-icons/md'
+
 
 const Feed = () => {
     const [posts, setPosts] = useState([])
@@ -69,7 +72,26 @@ const Feed = () => {
         setPosts(updatedPosts);
       };
 
-    //   console.log(posts)
+      const handleDeletePost = async(e,id)=>{
+        try {
+            console.log(id)
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+            }
+            const res = await axios.delete(`${VITE_URL}/removePost/${id}`,options)
+            
+            if(res.data.status === true){
+                alert("Post Deleted Successfully")
+                window.location.reload();
+            }else{
+                alert("Something Went Wrong")
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+      }
 
 
   return (
@@ -78,25 +100,39 @@ const Feed = () => {
 
         {posts?.map((post,i)=>(
             <div className={`feed_card ${i > 0 ? 'mt-4' : 'mt-4'}`} key={post._id}>
-                <Link to={`/profile/${post?.user?._id}`} className="feed_user_infp flex">
-                    <div className="img_feed_user rounded-full w-[40px] h-[40px]">
-                        <LazyLoadImage
-                            effect="blur" 
-                            src="https://source.unsplash.com/1600x900/?nature,photography,technology"
-                            alt="image_url"
-                            className="rounded-full w-[40px] h-[40px]"
-                         />
-                    </div>
-
-                    <div className="user_info_feed ml-3">
-                        <div className="name_of_user text-slate-100">
-                            {post?.user?.name.toUpperCase()}
+                <Link to={`/profile/${post?.user?._id}`} className="feed_user_infp flex justify-between w-full items-center">
+                    <div className="post_wrap flex">
+                        <div className="img_feed_user rounded-full w-[40px] h-[40px]">
+                            <LazyLoadImage
+                                effect="blur" 
+                                src="https://source.unsplash.com/1600x900/?nature,photography,technology"
+                                alt="image_url"
+                                className="rounded-full w-[40px] h-[40px]"
+                            />
                         </div>
 
-                        <div className="created_user_At text-slate-300">
-                            {moment(post.createdAt).fromNow()}
+                        <div className="user_info_feed ml-3">
+                            <div className="name_of_user text-slate-100">
+                                {post?.user?.name.toUpperCase()}
+                            </div>
+
+                            <div className="created_user_At text-slate-300">
+                                {moment(post.createdAt).fromNow()}
+                            </div>
                         </div>
                     </div>
+
+                    {post?.user?._id === user._id && (
+                        <div className="flex">
+                            <Link to={`/post/edit/${post?._id}`} className="edit_post_wrapper mr-5">
+                                <BsPencil className='edit_post'/>
+                            </Link>
+
+                            <div className="delete_me" onClick={(e) => handleDeletePost(e,post?._id)}>
+                                <MdDeleteOutline className='edit_post delete_post' />
+                            </div>
+                        </div>
+                    )}
                 </Link>
 
                 <div className="user_content mt-5">

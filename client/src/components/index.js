@@ -4,6 +4,7 @@ import CreatePost from './CreatePost.jsx'
 import Feed from './Feed.jsx'
 import NewsCard from './NewsCard.jsx'
 import ProfilePost from './ProfilePost.jsx'
+import Post from './Post.jsx'
 
 
 export {
@@ -12,5 +13,6 @@ export {
     CreatePost,
     Feed,
     NewsCard,
-    ProfilePost
+    ProfilePost,
+    Post
 }

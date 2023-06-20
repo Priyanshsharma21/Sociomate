@@ -3,6 +3,8 @@ import Auth from "./Auth";
 import Connection from "./Connection";
 import Profile from "./Profile";
 import Search from "./Search";
+import EditPost from "./EditPost";
+import PostDetails from "./PostDetails";
 
 
 
@@ -11,5 +13,7 @@ export {
     Auth,
     Connection,
     Profile,
-    Search
+    Search,
+    EditPost,
+    PostDetails
 }
