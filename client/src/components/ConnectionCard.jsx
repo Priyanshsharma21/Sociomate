@@ -70,15 +70,19 @@ const ConnectionCard = ({user}) => {
 
             {user.bio && (<>
                 <div className="name_home_card home_card_bio card_wala_bio  text-slate-300">
-                    {formatBioText(user?.bio)}
+                    {formatBioText(user?.bio)?.slice(0,50)}...
                 </div>
             </>)}
 
             <div className="follow_btn_main mt-5">
-                {loggedInuser?._id !== user?._id && (
+                {loggedInuser?._id !== user?._id ? (
                 <button className="follow_btn" onClick={()=>handleConnection(user?._id)}>
                     {user?.connections?.includes(loggedInuser?._id) ? 'Connected' : "Connect"}
                 </button>
+                ):(
+                  <Link to={`/profile/${user?._id}`}  className="follow_btn">
+                    Visit Profile
+                  </Link>
                 )}
             </div>
         </div>

@@ -321,6 +321,26 @@ label {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.input_searchz{
+  width: 100%;
+  height: 40px;
+  line-height: 28px;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #49495333;
+  color: #0d0c22;
+  transition: 0.3s ease;
+  border: 0.3px solid rgb(59, 134, 255);
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .input_search::placeholder {
   color: #9e9ea7;
 }
@@ -645,11 +665,23 @@ input:hover {
   padding: 1rem;
 }
 
+/* .user_content{
+  margin-top: 1.25rem !important;
+} */
+
+.show_more_post{
+  font-size: 0.8rem;
+}
+
+.show_more_post:hover{
+  text-decoration: underline;
+}
+
 .btn_main_create_submit {
   width: 100%;
   height: 20px;
-  background: #b9b9b958;
-  color: white;
+  background: #00aaff;
+  color: rgb(44, 44, 44);
   text-align: center;
   transition: all 0.2s linear;
   font-size: 1rem;
@@ -663,8 +695,8 @@ input:hover {
 }
 
 .btn_main_create_submit:hover {
-  background: #23232358;
-  color: rgb(255, 255, 255);
+  background: #7cd3ff;
+  color: rgb(11, 11, 11);
 }
 
 .photo_text {
@@ -858,25 +890,75 @@ input:hover {
   
 }
 
+@media (max-width: 393px) {
+
+  .img_profile_pic,
+  .img_pro {
+    top: 52%;
+    left: 5%;
+  
+    width: 70px;
+    height: 70px;
+  }
+  
+  .make_ing_res{
+    font-size: 0.8rem;
+  }
+
+  .make_res_ing{
+    margin-left: 0.4rem;
+  }
+
+  .image_main_home_post {
+    width: 100%;
+    height: 300px;
+    margin-top: 1rem;
+    border-radius: 1rem;
+  }
+
+  .user_bio{
+    margin-top: 2rem;
+  }
+
+
+  .name_on_profile {
+    font-size: 1rem;
+    font-weight: 800;
+    color: white;
+    margin-left: 1.2rem;
+  }
+  
+  
+}
+
+
+
+.connection_cards_mains{
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: 0.3rem;
+  border-radius: 1rem;
+}
+
 
 .connection_heading {
-  background-color: rgba(255, 255, 255, 0.074);
   color: white;
   text-align: center;
   width: 100%;
   height: 60px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 0.5rem;
-  margin-left: 0.2rem;
-
-  font-size: 2rem;
+  margin-left: 1rem;
+  font-size: 1.2rem;
 }
 
 .connectionCard {
-  margin-left: 1rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .user_info{
@@ -887,6 +969,10 @@ input:hover {
   .post_detail_card {
     margin-top: 2rem;
     margin-left: 0px;
+  }
+
+  .connection_cards_mains{
+    margin-top: 2rem;
   }
 
   .user_info{
@@ -1096,7 +1182,7 @@ input:hover {
 
 .card_connection_wala {
   width: 100%;
-  height: 370px;
+  height: 350px;
 }
 
 .searchbox {
@@ -1106,4 +1192,113 @@ input:hover {
   backdrop-filter: blur(9.8px);
   -webkit-backdrop-filter: blur(9.8px);
   padding: 1rem;
+}
+
+
+.button_create_bio{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color : rgba(0, 162, 255, 0.411);
+  border: 1px solid rgb(0, 119, 255);
+  border-radius: 1rem;
+  width: max-content;
+  height: max-content;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
+}
+
+
+
+
+.loader_second {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+}
+
+.loader_second div {
+  width: 8%;
+  height: 24%;
+  background: rgb(128, 128, 128);
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  opacity: 0;
+  border-radius: 50px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  animation: fade458 1s linear infinite;
+}
+
+@keyframes fade458 {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.loader_second .bar1 {
+  transform: rotate(0deg) translate(0, -130%);
+  animation-delay: 0s;
+}
+
+.loader_second .bar2 {
+  transform: rotate(30deg) translate(0, -130%);
+  animation-delay: -1.1s;
+}
+
+.loader_second .bar3 {
+  transform: rotate(60deg) translate(0, -130%);
+  animation-delay: -1s;
+}
+
+.loader_second .bar4 {
+  transform: rotate(90deg) translate(0, -130%);
+  animation-delay: -0.9s;
+}
+
+.loader_second .bar5 {
+  transform: rotate(120deg) translate(0, -130%);
+  animation-delay: -0.8s;
+}
+
+.loader_second .bar6 {
+  transform: rotate(150deg) translate(0, -130%);
+  animation-delay: -0.7s;
+}
+
+.loader_second .bar7 {
+  transform: rotate(180deg) translate(0, -130%);
+  animation-delay: -0.6s;
+}
+
+.loader_second .bar8 {
+  transform: rotate(210deg) translate(0, -130%);
+  animation-delay: -0.5s;
+}
+
+.loader_second .bar9 {
+  transform: rotate(240deg) translate(0, -130%);
+  animation-delay: -0.4s;
+}
+
+.loader_second .bar10 {
+  transform: rotate(270deg) translate(0, -130%);
+  animation-delay: -0.3s;
+}
+
+.loader_second .bar11 {
+  transform: rotate(300deg) translate(0, -130%);
+  animation-delay: -0.2s;
+}
+
+.loader_second .bar12 {
+  transform: rotate(330deg) translate(0, -130%);
+  animation-delay: -0.1s;
 }

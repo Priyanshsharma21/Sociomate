@@ -167,7 +167,7 @@ const Navbar = () => {
                 }}
                 onChange={(e)=>setSearchTerm(e.target.value)}
                 placeholder="Search"
-                className="px-3 py-3 mt-5 w-full  rounded-md ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-3 mt-5 w-full  rounded-md ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 input_searchz"
                 />
             </form>
             </div>

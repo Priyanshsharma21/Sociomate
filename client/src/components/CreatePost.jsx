@@ -69,7 +69,7 @@ const CreatePost = () => {
 
   const handleTagChange = (e) => {
     const { value } = e.target;
-    const tagsArray = value.split(',').map((tag) => tag.trim());
+    const tagsArray = value.split(',').map((tag) => tag.trim().toLowerCase())
     setFormData({ ...formData, tags: tagsArray });
   };
 
@@ -125,7 +125,7 @@ const CreatePost = () => {
                       {loader ? (
                           <LoginLoader />
                       ):(
-                          <>Submit</>
+                          <>Post</>
                       )}
                     </button>
                 </form>

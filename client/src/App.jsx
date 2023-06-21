@@ -11,7 +11,7 @@ const App = () => {
   const [timer, setTimer] = useState(2);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
+
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
@@ -45,7 +45,6 @@ const App = () => {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/post/edit/:postId" element={<EditPost />} />
             <Route path="/post/detail/:postId" element={<PostDetails />} />
-
           </Routes>
         </div>
       )}

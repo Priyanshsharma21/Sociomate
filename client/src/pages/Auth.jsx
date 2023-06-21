@@ -38,13 +38,16 @@ const Auth = () => {
         navigate('/')
       }else{
         setLoading(false)
+        console.log(res)
         alert("Enter all the details")
       }
     } catch (error) {
-         setLoading(false)
-
-        alert(error.message)
-        console.error(error);
+          setLoading(false)
+          if (error.response) {
+            alert(error.response.data.message);
+          } else {
+            alert("An error occurred. Please try again.");
+          }
     }
   };
 
@@ -58,12 +61,17 @@ const Auth = () => {
           alert("SignUp Successfully, Now Log In")
         }else{
           setLoading(false)
+          console.log(res)
           alert("Something Went Wrong")
         }
     } catch (error) {
+        console.error(error);
         setLoading(false)
-        alert(error.message)
-      console.error(error);
+        if (error.response) {
+          alert(`${error.response.data.message} Please Enter Correct Value`);
+        } else {
+          alert("An error occurred. Please try again.");
+        }
     }
   };
 
@@ -161,6 +169,7 @@ const Auth = () => {
               className="input"
               type="password"
               name="password"
+              minlength="8"
               placeholder="Password"
               value={registerForm.password}
               onChange={handleRegisterChange}

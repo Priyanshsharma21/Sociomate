@@ -146,8 +146,8 @@ const Post = ({post}) => {
 
   return (
     <div className="w-full post_detail_card">
-      <Link to={`/profile/${post?.user?._id}`} className="feed_user_infp flex justify-between w-full items-center">
-                    <div className="post_wrap flex">
+      <div className="feed_user_infp flex justify-between w-full items-center">
+                    <Link to={`/profile/${post?.user?._id}`} className="post_wrap flex">
                         <div className="img_feed_user rounded-full w-[40px] h-[40px]">
                             <LazyLoadImage
                                 effect="blur" 
@@ -170,7 +170,7 @@ const Post = ({post}) => {
                                 {moment(post?.createdAt).fromNow()}
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
                     {post?.user?._id === user?._id && (
                         <div className="flex">
@@ -178,12 +178,12 @@ const Post = ({post}) => {
                                 <BsPencil className='edit_post'/>
                             </Link>
 
-                            <div className="delete_me" onClick={(e) => handleDeletePost(e,post?._id)}>
+                            <div className="delete_me cursor-pointer" onClick={(e) => handleDeletePost(e,post?._id)}>
                                 <MdDeleteOutline className='edit_post delete_post' />
                             </div>
                         </div>
                     )}
-                </Link>
+                </div>
 
 
                 <div className="user_content mt-5">
@@ -208,21 +208,21 @@ const Post = ({post}) => {
                 <div className="like_share_comment mt-5 flex w-full justify-around">
                   <div className="like flex cursor-pointer" onClick={(e) => handleLikeClick(e, post._id)}>
                     {post?.likes?.some((like) => like.user === user._id) ? (
-                      <AiTwotoneLike className="text-white like_share_comment" />
+                      <AiTwotoneLike className="text-white make_ing_res like_share_comment" />
                     ) : (
-                      <AiOutlineLike className="text-white like_share_comment" />
+                      <AiOutlineLike className="text-white make_ing_res like_share_comment" />
                     )}
-                    <div className="like_text text-center ml-3">Like</div>
+                    <div className="like_text make_ing_res text-center make_res_ing ml-3">Like</div>
                   </div>
 
                     <div className="comment flex  cursor-pointer">
-                        <BiCommentDetail className='text-white like_share_comment'/>
-                        <div className="like_text text-center ml-3">Comment</div>
+                        <BiCommentDetail className='text-white make_ing_res like_share_comment'/>
+                        <div className="like_text make_ing_res text-center make_res_ing ml-3">Comment</div>
                     </div>
 
                     <div className="share flex cursor-pointer" onClick={() => setOpen(true)}>
-                        <BsShare className='text-white like_share_comment'/>
-                        <div className="like_text text-center ml-3">Share</div>
+                        <BsShare className='text-white make_ing_res like_share_comment'/>
+                        <div className="like_text make_ing_res text-center make_res_ing ml-3">Share</div>
                     </div>
 
                     <Modal
@@ -312,11 +312,6 @@ const Post = ({post}) => {
                       <Col span={22}>
                         <div className="flex justify-between items-center ml-2">
                           <p>{comment?.content}</p>
-                          {/* {comment?.user === user._id &&(
-                            <button onClick={(e) => handleDeleteComment(e, comment._id)}>
-                              <AiOutlineDelete className="text-white"/>
-                            </button>
-                          )} */}
                         </div>
                       </Col>
                     </Row>

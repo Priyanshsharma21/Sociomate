@@ -10,6 +10,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from 'react-router-dom'
 import { BsPencil } from 'react-icons/bs'
 import { MdDeleteOutline } from 'react-icons/md'
+import { FeedLoader } from '../components/PreLoader.jsx'
 
 
 const Feed = () => {
@@ -17,11 +18,11 @@ const Feed = () => {
     const {VITE_URL} = import.meta.env
     const user = JSON.parse(localStorage.getItem('user')) 
     const token = localStorage.getItem('token');
-
+    const [loader, setLoader] = useState(false)
 
     useEffect(()=>{
         const fetchPost = async()=>{
-
+            setLoader(true)
             const options = {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -31,76 +32,32 @@ const Feed = () => {
             try {
                 const res = await axios.get(`${VITE_URL}/getPosts`,options)
                 setPosts(res.data.data)
+                setLoader(false)
+
             } catch (error) {
+                setLoader(false)
                 alert(error.message)
             }
         }
         fetchPost()
     },[posts.length])
 
-    const truncateContent = (content) => {
-        const MAX_LENGTH = 70;
-        if (content.length > MAX_LENGTH) {
-          return content.slice(0, MAX_LENGTH) + '...';
-        }
-        return content;
-      };
     
-      const handleShowMore = (postId) => {
-        const updatedPosts = posts.map((post) => {
-          if (post._id === postId) {
-            return {
-              ...post,
-              showFullContent: true,
-            };
-          }
-          return post;
-        });
-        setPosts(updatedPosts);
-      };
-
-      const handleShowLess = (postId) => {
-        const updatedPosts = posts.map((post) => {
-          if (post._id === postId) {
-            return {
-              ...post,
-              showFullContent: false,
-            };
-          }
-          return post;
-        });
-        setPosts(updatedPosts);
-      };
-
-      const handleDeletePost = async(e,id)=>{
-        try {
-            const options = {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                  }
-            }
-            const res = await axios.delete(`${VITE_URL}/removePost/${id}`,options)
-            
-            if(res.data.status === true){
-                alert("Post Deleted Successfully")
-                window.location.reload();
-            }else{
-                alert("Something Went Wrong")
-            }
-        } catch (error) {
-            alert(error.message)
-        }
-      }
-
 
   return (
     <div className="feed ml-5">
         <CreatePost />
 
-        {posts?.map((post,i)=>(
+        {loader ? (
+            <div className="loader_fee_one flex justify-center w-full mt-10">
+                <FeedLoader />
+            </div>
+        ):(
+            <>
+            {posts?.map((post,i)=>(
             <div className={`feed_card ${i > 0 ? 'mt-4' : 'mt-4'}`} key={post._id}>
-                <Link to={`/profile/${post?.user?._id}`} className="feed_user_infp flex justify-between w-full items-center">
-                    <div className="post_wrap flex">
+                <div  className="feed_user_infp flex justify-between w-full items-center">
+                    <Link to={`/profile/${post?.user?._id}`} className="post_wrap flex">
                         <div className="img_feed_user rounded-full w-[40px] h-[40px]">
                             <LazyLoadImage
                                 effect="blur" 
@@ -119,22 +76,19 @@ const Feed = () => {
                                 {moment(post.createdAt).fromNow()}
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
                     {post?.user?._id === user._id && (
                         <div className="flex">
                             <Link to={`/post/edit/${post?._id}`} className="edit_post_wrapper mr-5">
                                 <BsPencil className='edit_post'/>
                             </Link>
-
-                            <div className="delete_me" onClick={(e) => handleDeletePost(e,post?._id)}>
-                                <MdDeleteOutline className='edit_post delete_post' />
-                            </div>
                         </div>
                     )}
-                </Link>
-
+                </div>
+                
                 <div className="user_content mt-5">
+                    <Link to={`/post/detail/${post?._id}`}>
                     <div className="post_feed_home">
                     <div className="content text-slate-100">
                     {post.showFullContent ? (
@@ -144,8 +98,7 @@ const Feed = () => {
                                 {post.content.slice(0, 70)}
                                 {post.content.length > 70 && '... '}
                                 <button
-                                className="text-primary-500 mt-2 underline ml-2"
-                                onClick={() => handleShowMore(post._id)}
+                                className="text-primary-400 mt-2 show_more_post ml-1 text-slate-300"
                                 >
                                 Show more
                                 </button>
@@ -154,7 +107,6 @@ const Feed = () => {
                             {post.showFullContent && (
                             <button
                                 className="text-primary-500 mt-2 underline ml-2"
-                                onClick={() => handleShowLess(post._id)}
                             >
                                 Show less
                             </button>
@@ -167,6 +119,7 @@ const Feed = () => {
                         </div>
                        </>)}
                     </div>
+                    </Link>
                 </div>
                 {/*  */}
                 <div className="like_count_detail mt-3 ml-1 text-slate-300">
@@ -178,26 +131,28 @@ const Feed = () => {
                     <Link to={`/post/detail/${post?._id}`} className="flex w-full justify-around">
                         <div className="like flex cursor-pointer">
                             {post?.likes?.some((like) => like.user === user._id) ? (
-                            <AiTwotoneLike className="text-white like_share_comment" />
+                            <AiTwotoneLike className="text-white make_ing_res like_share_comment" />
                             ) : (
-                            <AiOutlineLike className="text-white like_share_comment" />
+                            <AiOutlineLike className="text-white make_ing_res like_share_comment" />
                             )}
-                            <div className="like_text text-center ml-3">Like</div>
+                            <div className="like_text make_ing_res text-center make_res_ing ml-3">Like</div>
                         </div>
 
                         <div className="comment flex  cursor-pointer">
-                            <BiCommentDetail className='text-white like_share_comment'/>
-                            <div className="like_text text-center ml-3">Comment</div>
+                            <BiCommentDetail className='text-white like_share_comment make_ing_res'/>
+                            <div className="like_text make_ing_res text-center make_res_ing ml-3">Comment</div>
                         </div>
 
                         <div className="share flex cursor-pointer">
-                            <BsShare className='text-white like_share_comment'/>
-                            <div className="like_text text-center ml-3">Share</div>
+                            <BsShare className='text-white like_share_comment make_ing_res'/>
+                            <div className="like_text make_ing_res text-center make_res_ing ml-3">Share</div>
                         </div>
                     </Link>
                 </div>
             </div>
         ))}
+            </>
+        )}
     </div>
   )
 }
@@ -205,21 +160,3 @@ const Feed = () => {
 export default Feed
 
 
-
-// {
-//     "photo": {
-//         "id": "socioposts/af0ealjgqmbmtqwvise5",
-//         "secure_url": "https://res.cloudinary.com/do5ljoll8/image/upload/    v1687111774/socioposts/af0ealjgqmbmtqwvise5.jpg"
-//     },
-//     "_id": "648f485b2a66e7c38ff5d6f1",
-//     "content": "There is an vacancy for frontend developer",
-//     "likes": [],
-//     "tags": [
-//         "frontend",
-//         "jobs"
-//     ],
-//     "comments": [],
-//     "createdAt": "2023-06-18T18:09:31.515Z",
-//     "updatedAt": "2023-06-18T18:09:31.515Z",
-//     "__v": 0
-// }

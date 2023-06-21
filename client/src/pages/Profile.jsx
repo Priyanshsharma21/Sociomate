@@ -233,7 +233,7 @@ const Profile = () => {
 
             <div className="left_profile_top flex">
                   {loggedInuser?._id === uid && (
-                    <div className="edit_user_profile flex justify-center items-center" onClick={() => setOpen(true)}>
+                    <div className="edit_user_profile flex justify-center items-center" title="Edit Profile" onClick={() => setOpen(true)}>
                       <BsFillPencilFill className="user_pen_edit text-white mr-3 cursor-pointer" />
                     </div>
                   )}
@@ -336,7 +336,7 @@ const Profile = () => {
 
           <div className="follow_btn_main mt-5">
             {loggedInuser?._id !== uid && (
-              <button className="follow_btn" onClick={handleConnection}>
+              <button className="follow_btn ml-3" onClick={handleConnection}>
                 {user?.connections?.includes(loggedInuser?._id) ? 'Connected' : "Connect"}
               </button>
             )}

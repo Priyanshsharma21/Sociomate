@@ -189,9 +189,6 @@ export const getAllUsers = async (req, res) => {
 
 
 
-
-
-
 export const fetchUser = async (req, res) => {
   try {
     const { userId } = req.params
@@ -288,6 +285,9 @@ export const connections = async (req, res) => {
     });
   }
 };
+
+
+
 
 export const profileUpdate = async (req, res) => {
   try {
