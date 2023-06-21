@@ -11,13 +11,15 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { BsPencil } from 'react-icons/bs'
 import { MdDeleteOutline } from 'react-icons/md'
+import { ConnectionCard, UserCard } from '../components';
 
 const Search = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const [loading, setLoading] = useState(false)
-    const searchTerm = queryParams.get("q")
+    const searchTerm = queryParams.get("q").toLocaleLowerCase()
     const [searchResults, setSearchResult] = useState([])
+    const [userResults, setUserResults] = useState([])
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user')) 
     const { VITE_URL } = import.meta.env;
@@ -33,10 +35,11 @@ const Search = () => {
             },
           };
           const res = await axios.get(`${VITE_URL}/findPost?tags=${searchTerm}`,options)
-
-          if(res.data.status===true){
+          const userRes = await axios.get(`${VITE_URL}/users?term=${searchTerm}`, options)
+          if(res.data.status===true && userRes.data.status===true){
             setLoading(false)
             setSearchResult(res.data.data)
+            setUserResults(userRes.data.data)
           }else{
             alert("something went wrong")
           }
@@ -50,7 +53,7 @@ const Search = () => {
     },[searchTerm])
 
 
-    // console.log(searchResults)
+    console.log(userResults)
 
   return (
     <div className='searchbox w-full'>
@@ -60,13 +63,32 @@ const Search = () => {
         </div>
       ):(
         <div className="search_page">
-          <div className="posts_search text-white font-semibold">
+        <div className="userfound text-white font-semibold">
+            User Found on Search Term - {searchTerm}
+        </div>
+        {userResults?.length === 0 ? (
+          <div className="errormessage_no_found flex justify-center mt-4">
+            No User Found
+          </div>
+        ):(
+          <div className="users">
+              {userResults?.map((user,i)=>(
+               <div className="mt-5">
+                <ConnectionCard user={user} key={user?._id}/>
+               </div>
+              ))}
+          </div>
+        )}
+         
+
+
+
+          <div className="posts_search text-white font-semibold mt-8">
             Post Found on Search Term - {searchTerm}
           </div>
-
           <div className="main_posts">
             {searchResults?.length === 0 ? (
-              <div className="message_error w-full flex justify-center">
+              <div className="message_error w-full flex justify-center mt-4">
                 No Post Found
               </div>
             ):(
@@ -109,7 +131,7 @@ const Search = () => {
                     </Link>
 
                     <div className="user_content mt-5">
-                        <div className="post_feed_home">
+                        <Link to={`/post/detail/${post?._id}`} className="post_feed_home">
                         <div className="content text-slate-100">
                         {post.showFullContent ? (
                                 post.content
@@ -140,7 +162,7 @@ const Search = () => {
                                 <img loading="lazy" src={post?.photo.secure_url} className="w-full h-full object-cover image_main_home_post" alt="feed_post" />
                             </div>
                           </>)}
-                        </div>
+                        </Link>
                     </div>
                     {/*  */}
                     <div className="like_count_detail mt-3 ml-1 text-slate-300">

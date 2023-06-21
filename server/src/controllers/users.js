@@ -7,7 +7,8 @@ import {
   validateEmail,
   isValidReqBody,
   isValidPhoneNumber,
-  isValidPassword
+  isValidPassword,
+  getSearchTermType
 } from '../utils/index.js'
 
 
@@ -218,46 +219,34 @@ export const fetchUser = async (req, res) => {
 
 export const getUserByQuery = async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      mobile
-    } = req.query
+    const { term } = req.query;
 
+    const query = {};
 
+    const searchTermType = getSearchTermType(term);
 
-    const user = await Users.find({
-      $or: [{
-        name
-      }, {
-        email
-      }, {
-        mobile
-      }]
-    })
-
-
-    if (!user) {
-      return res.status(404).json({
-        status: false,
-        message: 'No user found',
-      });
+    if (searchTermType === 'email') {
+      query.email = { $regex: new RegExp(term, 'i') };
+    } else if (searchTermType === 'mobile') {
+      query.mobile = { $regex: new RegExp(term, 'i') };
+    } else {
+      query.name = { $regex: new RegExp(term, 'i') };
     }
 
 
+    const users = await Users.find(query);
+
     res.status(200).json({
       status: true,
-      data: user
-    })
-
-
+      data:users,
+    });
   } catch (error) {
     res.status(500).json({
       status: false,
       error: error.message,
     });
   }
-}
+};
 
 
 

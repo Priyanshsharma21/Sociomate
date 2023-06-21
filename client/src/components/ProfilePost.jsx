@@ -18,19 +18,28 @@ const ProfilePost = ({post}) => {
         <div className="post_main_profile_card mt-3">
             <Link to={`/post/detail/${post?._id}`}>
             <Row>
-              <Col span={2}>
+              <Col xl={2} lg={2} md={3} sm={4} xs={4} className="flex justify-center items-center">
               {post?.photo?.secure_url && (<>
-                  <div className="w-full h-[100px] rounded-xl relative">
+                  <div className="w-full h-[100px] flex justify-center items-center rounded-xl relative">
                         <img loading="lazy" src={post?.photo.secure_url} className="w-full h-full object-cover rounded-xl" alt="feed_post" />
                         <AiOutlinePlayCircle className="absolute play_me top-8 left-10 text-[2rem]" />
                   </div>
               </>)}
               </Col>
 
-              <Col span={22} className="flex flex-col justify-between">
+              <Col xl={22} lg={22} md={21} sm={20} xs={20} className="flex flex-col justify-between">
                   <div className="content_on_profile_post text-slate-200 ml-2">
                     {post?.content.slice(0,300)} ......
                   </div>
+
+                  <div className="post_profile_tags flex">
+                    {post?.tags?.map(tag => (
+                      <div className="tag_of_post text-blue-500 flex ml-3" key={tag}>
+                        #{tag}
+                      </div>
+                    ))}
+                  </div>
+
 
                   <div className="likesandcomments flex ml-3">
                     <div className="like_profile_show flex">

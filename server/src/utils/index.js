@@ -30,3 +30,17 @@ export const isValidPhoneNumber = (phoneNumber) => {
 
     return /^(?:\+?\d{1,3}[-\s]?)?\d{10}$/.test(cleanPhoneNumber);
 };
+
+export const getSearchTermType = (searchTerm)=> {
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const mobileRegex = /^\d{10}$/;
+  
+    if (emailRegex.test(searchTerm)) {
+      return 'email';
+    } else if (mobileRegex.test(searchTerm)) {
+      return 'mobile';
+    } else {
+      return 'name';
+    }
+  }
+  

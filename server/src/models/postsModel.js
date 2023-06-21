@@ -49,7 +49,8 @@ const postSchema = new Schema({
     },
   }],
   tags: {
-    type: [String]
+    type: [String],
+    lowercase: true,
   }
 }, {
   timestamps: true

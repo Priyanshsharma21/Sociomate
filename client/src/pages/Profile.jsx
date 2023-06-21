@@ -222,7 +222,7 @@ const Profile = () => {
             <img loading="lazy" className="h-[200px] w-full rounded-sm" src="https://source.unsplash.com/1600x900/?motivation" alt="natureBg" />
 
             <div className="absolute img_profile_pic">
-              <img loading="lazy" className="rounded-full img_pro" src="https://source.unsplash.com/1600x900/?face" alt="anime" />
+              <img loading="lazy" className="rounded-full img_pro" src="https://source.unsplash.com/1600x900/?face,clay,cartoon,illustration" alt="anime" />
             </div>
           </div>
 

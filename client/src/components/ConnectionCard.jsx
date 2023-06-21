@@ -57,15 +57,15 @@ const ConnectionCard = ({user}) => {
   return (
     <div className="connectionCard">
         <Link to={`/profile/${user?._id}`} className="flex flex-col w-full card_user rounded-xl card_connection_wala relative">
-        <div className="banner_home_card">
-            <img loading="lazy" className="object-cover w-full h-full rounded-xl " src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="home_card" />
-        </div>
+        <div className="banner_home_card relative">
+          <img loading="lazy" className="object-cover w-full h-full rounded-xl" src="https://source.unsplash.com/1600x900/?nature,photography,technology" alt="home_card" />
 
-        <div className="img_profile rounded-full absolute">
+          <div className="img_profile rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
             <img loading="lazy" className="object-cover w-full h-full rounded-full" src="https://source.unsplash.com/1600x900/?nature" alt="home_card" />
+          </div>
         </div>
 
-        <div className="user_info mt-5 flex flex-col items-center">
+        <div className="user_info flex flex-col items-center">
             <div className="name_home_card mt-2">{user.name.toUpperCase()}</div>
 
             {user.bio && (<>
@@ -90,18 +90,3 @@ const ConnectionCard = ({user}) => {
 export default ConnectionCard
 
 
-// {
-//     "_id": "648e2ce8d27ffd9362d887ce",
-//     "name": "priyansh sharma",
-//     "mobile": "8989410352",
-//     "email": "piyuindia220@gmail.com",
-//     "password": "$2a$10$27G4ZWbqNap16IG5VLNqg.XJCTQPIr8aAgNZjTXEEzKI5ANoL6y2S",
-//     "connections": [
-//         "6491ff977617b46d8a817122"
-//     ],
-//     "createdAt": "2023-06-17T22:00:08.276Z",
-//     "updatedAt": "2023-06-20T20:51:56.489Z",
-//     "__v": 5,
-//     "bio": "mern stack web developer & content creator, i make web more fun using threejs & gsap, react native developer,vuejs developer.",
-//     "slink": "https://devpriyansh.netlify.app/"
-// }

@@ -358,8 +358,6 @@ input:hover {
 .img_profile {
   width: 60px;
   height: 60px;
-  top: 6.9rem;
-  left: 40%;
 }
 
 .name_home_card {
@@ -742,7 +740,7 @@ input:hover {
 }
 
 .user_bio {
-  margin-top: 1rem;
+  margin-top: 0.4rem;
   font-size: 1rem;
   font-weight: 600;
   color: #ffffffd6;
@@ -853,8 +851,16 @@ input:hover {
   }
 }
 
+@media (max-width: 751px) {
+  .likesandcomments,.post_profile_tags{
+    margin-top: 1rem;
+  }
+  
+}
+
+
 .connection_heading {
-  background-color: rgba(255, 255, 255, 0.347);
+  background-color: rgba(255, 255, 255, 0.074);
   color: white;
   text-align: center;
   width: 100%;
@@ -862,7 +868,7 @@ input:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   margin-left: 0.2rem;
 
   font-size: 2rem;
@@ -873,10 +879,22 @@ input:hover {
   margin-top: 1rem;
 }
 
+.user_info{
+  margin-top: 2.5rem;
+}
+
 @media (max-width: 991px) {
   .post_detail_card {
     margin-top: 2rem;
     margin-left: 0px;
+  }
+
+  .user_info{
+    margin-top: 1rem !important;
+  }
+
+  .img_profile{
+    display: none;
   }
 
   .connection_heading {
@@ -1068,7 +1086,7 @@ input:hover {
 }
 
 .follow_btn_main {
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 
 .card_wala_bio {

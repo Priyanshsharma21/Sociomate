@@ -44,7 +44,7 @@ const Auth = () => {
          setLoading(false)
 
         alert(error.message)
-      console.error(error);
+        console.error(error);
     }
   };
 
